@@ -186,3 +186,161 @@ match point:
         case Color.BLUE:
             print("I'm feeling the blues :(")
     ```
+
+# 函数
+## 定义函数
+```python
+def fib(n):    # write Fibonacci series up to n
+    """Print a Fibonacci series up to n."""
+    a, b = 0, 1
+    while a < n:
+        print(a, end=' ')
+        a, b = b, a+b
+    print()
+
+# Now call the function we just defined:
+fib(2000)
+```
+- 函数内的第一条语句是字符串时，该字符串就是文档字符串，也称为 `docstring`
+- 变量作用域查找顺序
+    1. 函数局部变量符号表
+    2. 外层函数局部符号表
+    3. 全局符号表
+    4. 内置名称符号表
+- 尽管可以引用全局变量和外层函数的变量，但不要在函数内直接赋值，必要时使用 `global` 或者 `nonlocal` 进行修改
+    > [示例代码](./function1.py)
+- 函数可以赋值给变量
+
+## 默认值参数
+使用 `=` 给定参数默认值
+[示例代码](./function2.py)
+
+**重要警告**：默认值只计算一次。默认值为列表、字典或类实例等可变对象时，会产生与该规则不同的结果。例如，下面的函数会累积后续调用时传递的参数：
+```python
+def f(a, L=[]):
+    L.append(a)
+    return L
+
+print(f(1))
+print(f(2))
+print(f(3))
+```
+输出结果如下：
+```python
+[1]
+[1, 2]
+[1, 2, 3]
+```
+最佳实践：
+```python
+def f(a, L=None):
+    if L is None:
+        L = []
+    L.append(a)
+    return L
+```
+
+## 关键字参数
+就是这种方式的调用，不过多解释
+```parrot(voltage=1000000, action='VOOOOOM')```
+- 关键字参数必须跟在位置参数后面
+- 最后一个形参为 **name 形式时，接收一个字典 
+    [示例代码](./function3.py)
+## 特殊参数
+目的是限制参数的传递方式
+
+函数定义如下
+```
+def f(pos1, pos2, /, pos_or_kwd, *, kwd1, kwd2):
+      -----------    ----------     ----------
+        |             |                  |
+        |        Positional or keyword   |
+        |                                - Keyword only
+         -- Positional only
+```
+- 函数定义中未使用 `/` 和 `*` 时，参数可以按位置或关键字传递给函数。
+- `/` 后可以是 位置或关键字 或 仅限关键字 形参。
+- `*` 后只可以是 关键字 形参。
+
+[示例代码](./function4.py)
+
+## 任意实参列表
+- `args` 被视为元组
+- 可变数量的实参之前，可能有若干个普通参数：
+```python
+def write_multiple_items(file, separator, *args):
+    file.write(separator.join(args))
+```
+
+可变参数用于采集传递给函数的所有剩余参数，因此，它们通常在形参列表的末尾
+
+`*args` 形参后的任何形式参数只能是仅限关键字参数
+```python
+def concat(*args, sep="/"):
+    return sep.join(args)
+
+concat("earth", "mars", "venus")
+
+concat("earth", "mars", "venus", sep=".")
+```
+## 解包实参列表
+- `*` 把实参从列表或元组解包出来
+- `**` 把关键字参数从字典中解包出来 
+    [示例代码](./function5.py)
+
+## Lambda 表达式
+```lambda_expr ::=  "lambda" [parameter_list] ":" expression```
+```python
+>>> def make_incrementor(n):
+...     return lambda x: x + n
+...
+>>> f = make_incrementor(42)
+>>> f(0)
+42
+>>> f(1)
+43
+```
+[示例代码](./function6.py)
+
+把匿名函数用作传递的实参:
+```python
+>>> pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]
+>>> pairs.sort(key=lambda pair: pair[1])
+>>> pairs
+[(4, 'four'), (1, 'one'), (3, 'three'), (2, 'two')]
+```
+
+## 文档字符串
+1. 第一行应为对象用途的简短摘要。这一行应以大写字母开头，以句点结尾。
+2. 文档字符串为多行时，第二行应为空白行，在视觉上将摘要与其余描述分开。后面的行可包含若干段落，描述对象的调用约定、副作用等。
+
+```python
+>>> def my_function():
+...     """Do nothing, but document it.
+...
+...     No, really, it doesn't do anything.
+...     """
+...     pass
+...
+>>> print(my_function.__doc__)
+Do nothing, but document it.
+
+    No, really, it doesn't do anything.
+```
+
+## 函数注解
+类似于ts的形参类型声明，直接上例子
+
+标注 以字典的形式存放在函数的 `__annotations__` 属性中
+```python
+>>> def f(ham: str, eggs: str = 'eggs') -> str:
+...     print("Annotations:", f.__annotations__)
+...     print("Arguments:", ham, eggs)
+...     return ham + ' and ' + eggs
+...
+>>> f('spam')
+Annotations: {'ham': <class 'str'>, 'eggs': <class 'str'>, 'return': <class 'str'>}
+Arguments: spam eggs
+'spam and eggs'
+```
+
