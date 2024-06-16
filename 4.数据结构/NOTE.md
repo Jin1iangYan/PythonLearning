@@ -62,7 +62,7 @@ queue.popleft()                 # The first to arrive now leaves
 queue.popleft()                 # The second to arrive now leaves
 ```
 
-# 列表推导式
+## 列表推导式
 创建平方值的列表
 ```python
 squares = [x**2 for x in range(10)]
@@ -80,7 +80,7 @@ squares = [x**2 for x in range(10)]
 ['3.1', '3.14', '3.142', '3.1416', '3.14159']
 ```
 
-## 嵌套的列表推导式
+### 嵌套的列表推导式
 内部的列表推导式是在它之后的 `for` 上下文中被求值的
 ```python
 [[row[i] for row in matrix] for i in range(4)]
@@ -91,3 +91,9 @@ for i in range(4):
     transposed.append([row[i] for row in matrix])
 ```
 
+## del 语句
+- 按索引移除列表条目：`del a[0]`
+- 移除切片：`del a[2:4]`
+- 删除整个变量：`del a`
+
+后文会介绍 `del` 的其他用法。
