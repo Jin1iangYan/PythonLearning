@@ -128,3 +128,20 @@ for i in range(4):
     >>> [a, b, c]
     [1, 2, 3]
     ```
+
+## 集合
+```python
+basket = {'apple', 'orange', 'apple', 'pear', 'orange', 'banana'}
+```
+不重复元素组成的无序容器，是数学中的集合，支持合集、交集、差集、对称差分等数学运算
+
+基本用法包括成员检测、消除重复元素。
+
+[示例代码](./set1.py)
+
+和列表类似，集合也支持推导式：
+```python
+>>> a = {x for x in 'abracadabra' if x not in 'abc'}
+>>> a
+{'r', 'd'}
+```
