@@ -99,7 +99,7 @@ def initlog(*args):
 - 可以使用 | （“ or ”）在一个模式中组合几个字面值:
     ```python
     case 401 | 403 | 404:
-    return "Not allowed"python
+    return "Not allowed"
     ```
 
 ## match 的绑定变量
