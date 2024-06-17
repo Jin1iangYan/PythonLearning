@@ -129,7 +129,7 @@ for i in range(4):
     [1, 2, 3]
     ```
 
-## 集合（set）
+# 集合（set）
 ```python
 basket = {'apple', 'orange', 'apple', 'pear', 'orange', 'banana'}
 ```
@@ -148,7 +148,7 @@ basket = {'apple', 'orange', 'apple', 'pear', 'orange', 'banana'}
 {'r', 'd'}
 ```
 
-## 字典（dict）
+# 字典（dict）
 目前唯一一种标准映射（mapping）类型
 
 可以理解为 键值对 的集合
@@ -164,3 +164,113 @@ basket = {'apple', 'orange', 'apple', 'pear', 'orange', 'banana'}
 对字典执行 `list(d)` 操作，返回该字典中所有键的列表，按插入次序排列（如需排序，请使用 `sorted(d)`）。检查字典里是否存在某个键，使用关键字 `in`。
 
 [字典操作的简单示例](./dict.py)
+
+# 循环的技巧
+对字典进行循环时，可以使用 `items()` 方法同时提取键以及其对应的值
+```python
+>>> knights = {'gallahad': 'the pure', 'robin': 'the brave'}
+>>> for k, v in knights.items():
+...     print(k, v)
+...
+gallahad the pure
+robin the brave
+```
+在序列中循环时，用 `enumerate()` 函数可以同时取出位置索引和对应的值：
+```python
+>>> for i, v in enumerate(['tic', 'tac', 'toe']):
+...     print(i, v)
+...
+0 tic
+1 tac
+2 toe
+```
+同时循环两个或多个序列时，用 `zip()` 函数可以将其内的元素一一匹配：
+```python
+>>> questions = ['name', 'quest', 'favorite color']
+>>> answers = ['lancelot', 'the holy grail', 'blue']
+>>> for q, a in zip(questions, answers):
+...     print('What is your {0}? It is {1}.'.format(q, a))
+...
+What is your name? It is lancelot.
+What is your quest? It is the holy grail.
+What is your favorite color? It is blue.
+```
+`zip()` 实际做的事
+```python
+>>> list(zip(questions, answers))
+[('name', 'lancelot'), ('quest', 'the holy grail'), ('favorite color', 'blue')]
+```
+为了逆向对序列进行循环，可以求出欲循环的正向序列，然后调用 `reversed()` 函数：
+```python
+>>> for i in reversed(range(1, 10, 2)):
+...     print(i)
+...
+9
+7
+5
+3
+1
+```
+按指定顺序循环序列，可以用 sorted() 函数，在不改动原序列的基础上，返回一个重新的序列：
+```python
+>>> basket = ['apple', 'orange', 'apple', 'pear', 'orange', 'banana']
+>>> for i in sorted(basket):
+...     print(i)
+...
+apple
+apple
+banana
+orange
+orange
+pear
+```
+使用 set() 去除序列中的重复元素。使用 sorted() 加 set() 则按排序后的顺序，循环遍历序列中的唯一元素：
+```python
+>>> basket = ['apple', 'orange', 'apple', 'pear', 'orange', 'banana']
+>>> for i in sorted(set(basket)):
+...     print(i)
+...
+apple
+banana
+orange
+pear
+```
+一般来说，在循环中修改列表的内容时，创建新列表比较简单，且安全：
+```python
+>>> import math
+>>> raw_data = [56.2, float('NaN'), 51.7, 55.3, 52.5, float('NaN'), 47.8]
+>>> filtered_data = []
+>>> for value in raw_data:
+...     if not math.isnan(value):
+...         filtered_data.append(value)
+...
+>>> filtered_data
+[56.2, 51.7, 55.3, 52.5, 47.8]
+```
+
+# 深入条件控制
+- `in` `not in` 确定一个值是否存在某个容器中
+- `is` `is not` 确定两个对象是否是同一个对象
+    ```python
+    >>> [] is []
+    False
+    >>> a = []
+    >>> b = a
+    >>> a is b
+    True
+    ```
+- 比较操作支持链式操作。例如，`a < b == c` 校验 `a` 是否小于 `b`，且 `b` 是否等于 `c`。
+- Python 与 C 不同，在表达式内部赋值必须显式使用 海象运算符 `:=`。 这避免了 C 程序中常见的问题：要在表达式中写 `==` 时，却写成了 `=`。
+    ```python
+    while chunk := fp.read(200):
+    print(chunk)
+    ```
+
+# 序列类型的比较
+比较逻辑类似C语言的 `strcmp()`
+1. 比较序列的第一个元素。如果不同，则较小的元素所属的序列被认为是较小的。
+2. 如果第一个元素相同，则继续比较第二个元素，依此类推。
+3. 如果比较到一方序列结束，则较短的序列被认为是较小的。
+4. 如果所有元素都相同，则序列相等。
+> 当比较不同类型的对象时，只要待比较的对象提供了合适的比较方法，就可以使用 < 和 > 进行比较。否则 `TypeError`
+
