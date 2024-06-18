@@ -146,3 +146,71 @@ printf 风格的格式化
 import math
 print('The value of pi is approximately %5.3f.' % math.pi)
 ```
+
+# 读写文件
+## 打开文件
+`open() `返回一个 `file object` ，最常使用的是两个位置参数和一个关键字参数：`open(filename, mode, encoding=None)`
+## mode 参数
+- `'r'` read only（默认值）
+- `'w'` write only
+- `'a'` 追加（add）到末尾
+- `'a'` 追加（add）到末尾
+- `'r+'` 可读可写
+- 以上模式后面加一个 `'b'` 则使用二进制模式读写，此时不能指定 `encoding`
+## with 关键字
+在处理文件对象时，最好使用 with 关键字。优点是，子句体结束后，文件会正确关闭，即便触发异常也可以。而且，使用 with 相比等效的 try-finally 代码块要简短得多：
+```python
+with open('workfile', encoding="utf-8") as f:
+    read_data = f.read()
+
+# We can check that the file has been automatically closed.
+f.closed
+# True
+```
+> 如果没有使用 with 关键字，则应调用 f.close() 关闭文件，即可释放文件占用的系统资源。
+
+> **警告：**  调用 `f.write()` 时，未使用 `with` 关键字，或未调用 `f.close()`，即使程序正常退出，也**可能** 导致 `f.write()` 的参数没有完全写入磁盘。
+
+## 文件对象的方法
+### f.read(size)
+`f.read(size)` 可用于读取文件内容，它会读取一些数据，并返回字符串（文本模式），或字节串对象（在二进制模式下）。 `size` 是可选的数值参数。省略 `size` 或 `size` 为负数时，读取并返回整个文件的内容；文件大小是内存的两倍时，会出现问题。`size` 取其他值时，读取并返回最多 `size` 个字符（文本模式）或 `size` 个字节（二进制模式）。如已到达文件末尾，`f.read()` 返回空字符串（`''`）。
+### 行操作 & f.readline()
+`f.readline()` 从文件中读取单行数据；字符串末尾保留换行符（`\n`），只要 `f.readline()` 返回空字符串，就表示已经到达了文件末尾。
+
+从文件中读取多行时，可以用循环遍历整个文件对象：
+```python
+for line in f:
+    print(line, end='')
+
+This is the first line of the file.
+# Second line of the file
+```
+如需以列表形式读取文件中的所有行，可以用 `list(f)` 或 `f.readlines()`。
+### 其他函数
+`f.write(string)` 把 string 的内容写入文件，并返回写入的字符数。
+```python
+f.write('This is a test\n')
+# 15
+```
+`f.tell()` 返回整数，给出文件对象在文件中的当前位置，表示为二进制模式下时从文件开始的字节数，以及文本模式下的意义不明的数字。
+
+`f.seek(offset, whence)` 可以改变文件对象的位置。通过向参考点添加 `offset` 计算位置；参考点由 `whence` 参数指定。 `whence` 值为 `0` 时，表示从文件开头计算，`1` 表示使用当前文件位置，`2` 表示使用文件末尾作为参考点。省略 `whence` 时，其默认值为 `0`，即使用文件开头作为参考点。
+
+> 在文本文件（模式字符串未使用 `b` 时打开的文件）中，只允许相对于文件开头搜索（使用 `seek(0, 2)` 搜索到文件末尾是个例外），唯一有效的 `offset` 值是能从 `f.tell()` 中返回的，或 `0`。其他 `offset` 值都会产生未定义的行为。
+
+## 使用 json 保存结构化数据
+`json.dumps()` 函数将对象转化为 json 字符串
+```python
+import json
+x = [1, 'simple', 'list']
+json.dumps(x)
+# '[1, "simple", "list"]'
+```
+`json.dump()` 函数将对象序列化为 `text file` 对象
+```python
+json.dump(x, f)
+```
+要再次解码对象，如果 f 是已打开、供读取的 `binary file` 或 `text file` 对象：
+```python
+x = json.load(f)
+```
