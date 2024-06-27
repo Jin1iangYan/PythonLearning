@@ -65,7 +65,7 @@
     len(s)
     #34
     ```
-> [Python 常用字符串](https://blog.csdn.net/QLeelq/article/details/121056435)
+> [Python 常用字符串函数](https://blog.csdn.net/QLeelq/article/details/121056435)
 
 > [f字符串](http://t.csdnimg.cn/PBorW)
 
