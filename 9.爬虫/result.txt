@@ -1,0 +1,70 @@
+# 发送一个 GET 请求，忽略 CA 证书验证
+{
+  "args": {
+    "param1": "value1", 
+    "param2": "value2"
+  }, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Cookie": "name=value; name2=value2", 
+    "Host": "httpbin.org", 
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3", 
+    "X-Amzn-Trace-Id": "Root=1-667cec8c-0d3adb2b2a84114a560807dc"
+  }, 
+  "origin": "5.34.216.101", 
+  "url": "https://httpbin.org/get?param1=value1&param2=value2"
+}
+# 发送一个 POST 请求
+{
+  "args": {}, 
+  "data": "", 
+  "files": {}, 
+  "form": {
+    "key1": "value1", 
+    "key2": "value2"
+  }, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Content-Length": "23", 
+    "Content-Type": "application/x-www-form-urlencoded", 
+    "Cookie": "name=value; name2=value2", 
+    "Host": "httpbin.org", 
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3", 
+    "X-Amzn-Trace-Id": "Root=1-667cec8d-293c028e6a97f2e065efa0f7"
+  }, 
+  "json": null, 
+  "origin": "5.34.216.101", 
+  "url": "https://httpbin.org/post"
+}
+# 发送一个带状态的 GET 请求
+{
+  "cookies": {
+    "name": "value", 
+    "name2": "value2"
+  }
+}
+# 发送一个带状态的 POST 请求
+{
+  "args": {}, 
+  "data": "", 
+  "files": {}, 
+  "form": {
+    "key1": "value1", 
+    "key2": "value2"
+  }, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Content-Length": "23", 
+    "Content-Type": "application/x-www-form-urlencoded", 
+    "Cookie": "name=value; name2=value2", 
+    "Host": "httpbin.org", 
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3", 
+    "X-Amzn-Trace-Id": "Root=1-667cec8f-3076a7870087f9160f908a58"
+  }, 
+  "json": null, 
+  "origin": "5.34.216.101", 
+  "url": "https://httpbin.org/post"
+}
