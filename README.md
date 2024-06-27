@@ -2,15 +2,17 @@
 [官方文档](https://docs.python.org/zh-cn/3/tutorial/)
 
 ## 目录
-1. [Python解释器](./1.Python%20解释器/NOTE.md)
-2. [Python速览](./2.Python速览/NOTE.md)
-3. [控制流](./3.控制流/NOTE.md)
-4. [数据结构](./4.数据结构/NOTE.md)
-5. [模块](./5.模块/NOTE.md)
-6. [输入输出](./6.输入输出/NOTE.md)
-7. [异常](./7.异常/NOTE.md)
-8. [类](./8.类/NOTE.md)
-9. [爬虫](./9.爬虫/NOTE.md)
+- [Python解释器](./1.Python%20解释器/NOTE.md)
+- [Python速览](./2.Python速览/NOTE.md)
+- [控制流](./3.控制流/NOTE.md)
+- [数据结构](./4.数据结构/NOTE.md)
+- [模块](./5.模块/NOTE.md)
+- [输入输出](./6.输入输出/NOTE.md)
+- [异常](./7.异常/NOTE.md)
+- [类](./8.类/NOTE.md)
+- [爬虫](./9.爬虫/NOTE.md)
+  - [请求](./9.爬虫/9.1请求/NOTE.md)
+  - [数据解析](./9.爬虫/9.2数据解析/NOTE.md)
 
 ## 代码风格
 - 缩进，用 4 个空格，不要用制表符。
