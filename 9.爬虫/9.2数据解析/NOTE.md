@@ -54,3 +54,6 @@
 }
 ```
 [练习代码](./jsonpath/jsonpath_demo2.py)
+
+### 结合请求的jsonpath
+[练习代码](./jsonpath/jsonpath_demo3.py)
