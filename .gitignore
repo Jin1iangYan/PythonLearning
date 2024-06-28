@@ -7,6 +7,7 @@
 *.egg-info
 *.EGG-INFO
 .*.cfg
+9.爬虫/9.2数据提取/xpath/souhu_downloads/
 bin/
 build/
 develop-eggs/
